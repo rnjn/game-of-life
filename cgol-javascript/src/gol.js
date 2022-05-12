@@ -9,6 +9,15 @@ const createGrid = function(length, breadth) {
         return grid;
     };
 
+const seedGrid = function(grid, seeds) {
+    for (var i = 0; i < seeds.length; i++) {
+        grid[seeds[i][0]][seeds[i][1]] = 1;
+    }
+    return grid;
+
+};
+
 module.exports = {
-    createGrid : createGrid
+    createGrid : createGrid,
+    seedGrid : seedGrid
 }
