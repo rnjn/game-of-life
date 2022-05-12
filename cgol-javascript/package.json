@@ -1,0 +1,14 @@
+{
+    "name": "conways_game_of_life",
+    "version": "1.0.0",
+    "description": "Implementation of Conways Game of Life in JavaScript",
+    "main": "index.js",
+    "author": "rnjn",
+    "scripts": {
+          "test": "jest"
+        },
+    "dependencies": {
+      "jest": "^28.1.0"
+    }
+  }
+  
