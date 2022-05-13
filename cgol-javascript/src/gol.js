@@ -31,7 +31,11 @@ const tick = function(grid) {
     for (var i = 0; i < grid.length; i++) {
         for (var j = 0; j < grid[0].length; j++) {
             const neighbourCount = countNeighbours(i, j);
-            if(neighbourCount === 3 || neighbourCount === 2) {
+            if(neighbourCount === 3) {
+                newGrid[i][j] = 1;
+                continue;
+            }
+            if(grid[i][j] == 1 && neighbourCount === 2) {
                 newGrid[i][j] = 1;
             }
         }

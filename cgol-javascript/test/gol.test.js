@@ -29,3 +29,25 @@ test("ticks the grid, cell alive if 3 neighbours", () => {
     grid = cgol.tick(grid);
     expect(grid[0][0]).toBe(1);
 });
+
+test("ticks the grid, cell dies if it has more than 3 neighbours", () => {
+    var grid = cgol.createGrid(10, 10);
+    grid = cgol.seedGrid(grid, [[1,4], [0,3], [0,4], [0,5], [1,5]]);
+    grid = cgol.tick(grid);
+    expect(grid[1][4]).toBe(0);
+});
+
+
+test("ticks the grid, cell doesn't come alive if it has 2 neighbours", () => {
+    var grid = cgol.createGrid(10, 10);
+    grid = cgol.seedGrid(grid, [[0,3], [0,4]]);
+    grid = cgol.tick(grid);
+    expect(grid[1][4]).toBe(0);
+});
+
+test("ticks the grid, cell comes alive if it has 3 neighbours", () => {
+    var grid = cgol.createGrid(10, 10);
+    grid = cgol.seedGrid(grid, [[0,3], [0,4], [0,5]]);
+    grid = cgol.tick(grid);
+    expect(grid[1][4]).toBe(1);
+});
