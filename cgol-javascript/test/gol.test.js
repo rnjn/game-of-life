@@ -71,12 +71,26 @@ test("ticks the grid, some more tests on edges, still block", () => {
 test("ticks the grid, blinker", () => {
     var grid = cgol.createGrid(5, 5);
     grid = cgol.seedGrid(grid, [[1,2], [2,2], [3,2]]);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 0);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 1);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 2);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 3);
 
+});
+
+test("ticks the grid, when all alive, dead in 2 steps", () => {
+    var grid = cgol.createGrid(5, 5);
+    for (var i = 0; i < grid.length; i++) {
+        for (var j = 0; j < grid[0].length; j++) {
+            grid[i][j] = 1;
+        }
+    }
+    ix.renderGrid(grid,0);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid,1);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid,2);
 });
