@@ -25,5 +25,5 @@ const start = async function(iterations, gridLength, gridHeight, numberOfLiveCel
     }
 };
 
-start(100, 40, 40, 300);
+start(120, 40, 40, 200);
 

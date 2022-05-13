@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class App {
 
     public static void main(String[] args) throws InterruptedException {
-        Board board = new Board(40, 40, 300);
+        Board board = new Board(40, 40, 200);
         System.out.println(board.serialise());
         startGameOfLife(board, 100);
     }

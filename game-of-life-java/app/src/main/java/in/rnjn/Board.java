@@ -19,9 +19,11 @@ public class Board {
 
     private void setAliveCellsRandomly(int numberOfAliveCells) {
         Random random = new Random();
-        random.ints(numberOfAliveCells * 10, 0, board.length * board[0].length).distinct().limit(numberOfAliveCells).
-                forEach(index ->
-                        board[index / board.length][index % board.length] = 1);
+        random.ints(numberOfAliveCells * 10L,
+                0, board.length * board[0].length)
+                .distinct()
+                .limit(numberOfAliveCells)
+                .forEach(index -> board[index / board.length][index % board.length] = 1);
     }
 
     public int[][] getLatestBoardCopy() {
@@ -54,23 +56,22 @@ public class Board {
     }
 
     private int getCell(int x, int y) {
-        if (x < 0 || y < 0 || x > board.length - 1  || y > board[0].length - 1) return 0;
+        if (x < 0 || y < 0 || x > board.length - 1 || y > board[0].length - 1) return 0;
         else return board[x][y];
     }
 
     public String serialise() {
-        String header = "_".repeat(board[0].length + 2);
-        String output = header;
-        for (int i = 0; i < board.length; i++) {
-            output += "\n|";
+        StringBuilder output = new StringBuilder("_".repeat(board[0].length + 2));
+        for (int[] ints : board) {
+            output.append("\n|");
             for (int j = 0; j < board[0].length; j++) {
-                output += board[i][j] == 1 ? "*" : " ";
+                output.append(ints[j] == 1 ? "*" : " ");
             }
-            output += "|";
+            output.append("|");
         }
-        output += "\n";
-        output += "-".repeat(board[0].length + 2);
-        output += "\n";
-        return output;
+        output.append("\n");
+        output.append("-".repeat(board[0].length + 2));
+        output.append("\n");
+        return output.toString();
     }
 }
