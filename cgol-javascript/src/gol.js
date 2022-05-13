@@ -37,10 +37,7 @@ const tick = function(grid) {
     return grid.map((row, i) => { 
             return row.map((cell, j) => {
                 const neighbourCount = countNeighbours(i, j);
-                if(neighbourCount === 3) {
-                    return 1;
-                }
-                if(grid[i][j] == 1 && neighbourCount === 2) {
+                if(neighbourCount === 3  || (cell == 1 && neighbourCount === 2)) {
                     return 1;
                 }
                 return 0;
