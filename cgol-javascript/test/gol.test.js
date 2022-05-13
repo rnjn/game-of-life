@@ -11,4 +11,21 @@ test("seeds the grid", () => {
     grid = cgol.seedGrid(grid, [[1,2], [2,3], [4,4], [9,8]]);
     expect(grid[1][2]).toBe(1);
     expect(grid[2][3]).toBe(1);
+    expect(grid[4][4]).toBe(1);
+    expect(grid[9][8]).toBe(1);
+});
+
+test("ticks the grid, all dead the next tick if only 2 alive", () => {
+    var grid = cgol.createGrid(10, 10);
+    grid = cgol.seedGrid(grid, [[1,2], [2,3]]);
+    grid = cgol.tick(grid);
+    expect(grid[1][2]).toBe(0);
+    expect(grid[2][3]).toBe(0);
+});    
+
+test("ticks the grid, cell alive if 3 neighbours", () => {
+    var grid = cgol.createGrid(10, 10);
+    grid = cgol.seedGrid(grid, [[0,0], [0,1], [1,1]]);
+    grid = cgol.tick(grid);
+    expect(grid[0][0]).toBe(1);
 });
