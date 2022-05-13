@@ -1,18 +1,12 @@
 const createGrid = function(length, breadth) {
-        var grid = [];
-        for (var i = 0; i < length; i++) {
-            grid[i] = [];
-            for (var j = 0; j < breadth; j++) {
-                grid[i][j] = 0;
-            }
-        }
-        return grid;
-    };
+    return new Array(length).fill(0).map(() => new Array(breadth).fill(0));
+};
+    
 
 const seedGrid = function(grid, seeds) {
-    for (var i = 0; i < seeds.length; i++) {
-        grid[seeds[i][0]][seeds[i][1]] = 1;
-    }
+    seeds.forEach(element => {
+        grid[element[0]][element[1]] = 1;
+    });
     return grid;
 };
 
@@ -26,13 +20,7 @@ const seedRandomGrid = function(grid, numberOfLiveCells) {
 };
 
 const cloneGrid = function(grid) {
-    var newGrid = createGrid(grid.length, grid[0].length);
-    for (var i = 0; i < grid.length; i++) {
-        for (var j = 0; j < grid[0].length; j++) {
-            newGrid[i][j] = grid[i][j];
-        }
-    }
-    return newGrid;
+    return JSON.parse(JSON.stringify(grid));
 };
 
 const tick = function(grid) {
