@@ -16,6 +16,25 @@ const seedGrid = function(grid, seeds) {
     return grid;
 };
 
+const seedRandomGrid = function(grid, numberOfLiveCells) {
+    var length = grid.length;
+    var breadth = grid[0].length;
+    var randomArray = Array.apply(null, {length: numberOfLiveCells}).map(function(){
+        return [Math.floor(Math.random() * length), Math.floor(Math.random() * breadth)];
+    });
+    return seedGrid(grid, randomArray);
+};
+
+const cloneGrid = function(grid) {
+    var newGrid = createGrid(grid.length, grid[0].length);
+    for (var i = 0; i < grid.length; i++) {
+        for (var j = 0; j < grid[0].length; j++) {
+            newGrid[i][j] = grid[i][j];
+        }
+    }
+    return newGrid;
+};
+
 const tick = function(grid) {
     const isNeighbour = function(x, y) {
         return grid[x] && grid[x][y] ? grid[x][y] : 0;
@@ -43,9 +62,42 @@ const tick = function(grid) {
     return newGrid;
 };
 
+const gridEquals = function(grid1, grid2) {
+    if(grid1.length !== grid2.length) {
+        return false;
+    }
+    for (var i = 0; i < grid1.length; i++) {
+        for (var j = 0; j < grid1[0].length; j++) {
+            if(grid1[i][j] !== grid2[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
+const serialise = function (grid) {
+    const header = "_".repeat(grid[0].length + 2);
+    var output = header;
+    for (var i = 0; i < grid.length; i++) {
+        output += "\n|";
+        for (var j = 0; j < grid[0].length; j++) {
+            output += grid[i][j] ? "*" : " ";
+        }
+        output += "|";
+    }
+    output += "\n";
+    output += "-".repeat(grid[0].length + 2);
+    output += "\n";
+    return output;
+};
 
 module.exports = {
     createGrid : createGrid,
     seedGrid : seedGrid,
+    seedRandomGrid : seedRandomGrid,
     tick: tick,
+    gridEquals: gridEquals,
+    serialise: serialise,
+    cloneGrid: cloneGrid
 }

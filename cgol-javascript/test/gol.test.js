@@ -1,4 +1,3 @@
-const ix = require('../index.js');
 const cgol = require('../src/gol.js');
 
 test("creates a grid", () => {
@@ -14,6 +13,42 @@ test("seeds the grid", () => {
     expect(grid[2][3]).toBe(1);
     expect(grid[4][4]).toBe(1);
     expect(grid[9][8]).toBe(1);
+});
+
+test("seeds random grid", () => {
+    const sumGrid = function(grid) {
+        var sum = 0;
+        for (var i = 0; i < grid.length; i++) {
+            for (var j = 0; j < grid[0].length; j++) {
+                sum += grid[i][j] ?? 0;
+            }
+        }
+        return sum;
+    };
+    
+    var grid = cgol.createGrid(100, 100);
+    grid = cgol.seedRandomGrid(grid, 10);
+    expect(sumGrid(grid)).toBe(10);
+});
+
+test("grid equals", () => {
+    var grid1 = cgol.createGrid(10, 10);
+    var grid2 = cgol.createGrid(10, 10);
+    expect(cgol.gridEquals(grid1, grid2)).toBe(true);
+    grid1 = cgol.seedGrid(grid1, [[1,2], [2,3], [4,4], [9,8]]);
+    grid2 = cgol.seedGrid(grid2, [[1,2], [2,3], [4,4], [9,8]]);
+    expect(cgol.gridEquals(grid1, grid2)).toBe(true);
+    var grid3 = cgol.seedRandomGrid(grid1, 10);
+    expect(cgol.gridEquals(grid1, grid2)).toBe(false);
+
+});
+
+test("clone grid", () => {
+    var grid1 = cgol.createGrid(10, 10);
+    var grid2 = cgol.createGrid(10, 10);
+    grid1 = cgol.seedGrid(grid1, [[1,2], [2,3], [4,4], [9,8]]);
+    grid2 = cgol.cloneGrid(grid1);
+    expect(cgol.gridEquals(grid1, grid2)).toBe(true);
 });
 
 test("ticks the grid, all dead the next tick if only 2 alive", () => {
@@ -56,28 +91,32 @@ test("ticks the grid, cell comes alive if it has 3 neighbours", () => {
 test("ticks the grid, some more tests on edges, still block", () => {
     var grid = cgol.createGrid(4, 8);
     grid = cgol.seedGrid(grid, [[3,6], [2,6], [2,7]]);
-    ix.renderGrid(grid, 0);
     grid = cgol.tick(grid);
-    expect(grid[3][7]).toBe(1);
-    ix.renderGrid(grid, 1);
-    grid = cgol.tick(grid);
-    ix.renderGrid(grid, 2);
-    grid = cgol.tick(grid);
-    ix.renderGrid(grid, 3);
 
+    var i1 = cgol.seedGrid(cgol.createGrid(4, 8), [[3,6],[3,7],[2,6], [2,7]]);
+    expect(cgol.gridEquals(grid, i1)).toBe(true);
+
+    var i2 = cgol.tick(i1);
+    expect(cgol.gridEquals(i2, i1)).toBe(true);
+    
+    var i3 = cgol.tick(i2);
+    expect(cgol.gridEquals(i3, i2)).toBe(true);
+    
 });
 
 
 test("ticks the grid, blinker", () => {
     var grid = cgol.createGrid(5, 5);
     grid = cgol.seedGrid(grid, [[1,2], [2,2], [3,2]]);
-    ix.renderGrid(grid, 0);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid, 1);
+
+    expect(cgol.gridEquals(cgol.seedGrid(cgol.createGrid(5, 5), [[2,1], [2,2], [2,3]]), grid)).toBe(true);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid, 2);
+    expect(cgol.gridEquals(cgol.seedGrid(cgol.createGrid(5, 5), [[1,2], [2,2], [3,2]]), grid)).toBe(true);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid, 3);
+    expect(cgol.gridEquals(cgol.seedGrid(cgol.createGrid(5, 5), [[2,1], [2,2], [2,3]]), grid)).toBe(true);
+    grid = cgol.tick(grid);
+    expect(cgol.gridEquals(cgol.seedGrid(cgol.createGrid(5, 5), [[1,2], [2,2], [3,2]]), grid)).toBe(true);
 
 });
 
@@ -88,9 +127,7 @@ test("ticks the grid, when all alive, dead in 2 steps", () => {
             grid[i][j] = 1;
         }
     }
-    ix.renderGrid(grid,0);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid,1);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid,2);
+    expect(cgol.gridEquals(cgol.createGrid(5, 5), grid)).toBe(true);
 });

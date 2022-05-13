@@ -4,6 +4,7 @@
     "description": "Implementation of Conways Game of Life in JavaScript",
     "main": "index.js",
     "author": "rnjn",
+    "license": "ISC",
     "scripts": {
           "test": "jest"
         },
