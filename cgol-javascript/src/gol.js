@@ -17,14 +17,14 @@ const seedGrid = function(grid, seeds) {
 };
 
 const tick = function(grid) {
-    const getOrZero = function(x, y) {
+    const isNeighbour = function(x, y) {
         return grid[x] && grid[x][y] ? grid[x][y] : 0;
     };
 
     const countNeighbours = function(x, y) {
-        return getOrZero(x-1,y-1) + getOrZero(x-1, y) + getOrZero(x-1, y+1) +
-                getOrZero(x, y-1) + getOrZero(x, y+1) +
-                getOrZero(x+1, y-1) + getOrZero(x+1, y) + getOrZero(x+1, y+1);
+        return isNeighbour(x-1,y-1) + isNeighbour(x-1, y) + isNeighbour(x-1, y+1) +
+                isNeighbour(x, y-1) + isNeighbour(x, y+1) +
+                isNeighbour(x+1, y-1) + isNeighbour(x+1, y) + isNeighbour(x+1, y+1);
     };
 
     var newGrid = createGrid(grid.length, grid[0].length);
@@ -40,20 +40,9 @@ const tick = function(grid) {
             }
         }
     }
-    render(newGrid);
     return newGrid;
 };
 
-const render = function(grid) {
-    var output = "";
-    for (var i = 0; i < grid.length; i++) {
-        for (var j = 0; j < grid[0].length; j++) {
-            output += grid[i][j] ? "*" : " ";
-        }
-        output += "\n";
-    }
-    console.log(output);
-}
 
 module.exports = {
     createGrid : createGrid,

@@ -1,3 +1,4 @@
+const ix = require('../index.js');
 const cgol = require('../src/gol.js');
 
 test("creates a grid", () => {
@@ -50,4 +51,32 @@ test("ticks the grid, cell comes alive if it has 3 neighbours", () => {
     grid = cgol.seedGrid(grid, [[0,3], [0,4], [0,5]]);
     grid = cgol.tick(grid);
     expect(grid[1][4]).toBe(1);
+});
+
+test("ticks the grid, some more tests on edges, still block", () => {
+    var grid = cgol.createGrid(4, 8);
+    grid = cgol.seedGrid(grid, [[3,6], [2,6], [2,7]]);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    expect(grid[3][7]).toBe(1);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid);
+
+});
+
+
+test("ticks the grid, blinker", () => {
+    var grid = cgol.createGrid(5, 5);
+    grid = cgol.seedGrid(grid, [[1,2], [2,2], [3,2]]);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid);
+    grid = cgol.tick(grid);
+    ix.renderGrid(grid);
+
 });
