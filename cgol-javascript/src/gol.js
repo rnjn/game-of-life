@@ -33,22 +33,20 @@ const tick = function(grid) {
                 isNeighbour(x, y-1) + isNeighbour(x, y+1) +
                 isNeighbour(x+1, y-1) + isNeighbour(x+1, y) + isNeighbour(x+1, y+1);
     };
-
-    var newGrid = createGrid(grid.length, grid[0].length);
-    for (var i = 0; i < grid.length; i++) {
-        for (var j = 0; j < grid[0].length; j++) {
-            const neighbourCount = countNeighbours(i, j);
-            if(neighbourCount === 3) {
-                newGrid[i][j] = 1;
-                continue;
-            }
-            if(grid[i][j] == 1 && neighbourCount === 2) {
-                newGrid[i][j] = 1;
-            }
-        }
+    
+    return grid.map((row, i) => { 
+            return row.map((cell, j) => {
+                const neighbourCount = countNeighbours(i, j);
+                if(neighbourCount === 3) {
+                    return 1;
+                }
+                if(grid[i][j] == 1 && neighbourCount === 2) {
+                    return 1;
+                }
+                return 0;
+            });
+        });
     }
-    return newGrid;
-};
 
 const gridEquals = function(grid1, grid2) {
     if(grid1.length !== grid2.length) {
