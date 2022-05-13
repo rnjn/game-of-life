@@ -56,14 +56,14 @@ test("ticks the grid, cell comes alive if it has 3 neighbours", () => {
 test("ticks the grid, some more tests on edges, still block", () => {
     var grid = cgol.createGrid(4, 8);
     grid = cgol.seedGrid(grid, [[3,6], [2,6], [2,7]]);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 0);
     grid = cgol.tick(grid);
     expect(grid[3][7]).toBe(1);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 1);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 2);
     grid = cgol.tick(grid);
-    ix.renderGrid(grid);
+    ix.renderGrid(grid, 3);
 
 });
 
