@@ -131,3 +131,12 @@ test("ticks the grid, when all alive, dead in 2 steps", () => {
     grid = cgol.tick(grid);
     expect(cgol.gridEquals(cgol.createGrid(5, 5), grid)).toBe(true);
 });
+
+test("serialise grid", () => {
+    var emptyGrid = cgol.createGrid(1, 1);
+    var seededGrid = cgol.seedGrid(cgol.createGrid(1, 1), [[0,0]]);
+    var expectedEmpty =    "___" + "\n" +"| |" + "\n" + "---" + "\n";
+    var expectedSeeded =    "___" + "\n" +"|*|" + "\n" + "---" + "\n";
+    expect(cgol.serialise(emptyGrid)).toBe(expectedEmpty);
+    expect(cgol.serialise(seededGrid)).toBe(expectedSeeded);
+});
