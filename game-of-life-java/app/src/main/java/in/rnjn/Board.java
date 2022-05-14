@@ -60,7 +60,8 @@ public class Board {
         else return board[x][y];
     }
 
-    public String serialise() {
+    @Override
+    public String toString() {
         StringBuilder output = new StringBuilder("_".repeat(board[0].length + 2));
         for (int[] ints : board) {
             output.append("\n|");
@@ -74,4 +75,5 @@ public class Board {
         output.append("\n");
         return output.toString();
     }
+
 }
