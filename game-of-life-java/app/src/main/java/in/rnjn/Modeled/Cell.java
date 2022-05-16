@@ -72,7 +72,9 @@ public class Cell {
         return Math.toIntExact(neighbours.stream().count());
     }
 
-    //TODO : find a better way to model this, can leave models in an invalid state
+    //TODO : find a better way to model this, can leave objects in an invalid state.
+    // Right now, this is a 2 step process - create a list of cells, and then
+    // assign neighbours. Smelly and bug prone, inelegant. 
     public void setNeighbours(List<Cell> neighbours) {
         this.neighbours.clear();
         this.neighbours.addAll(neighbours == null ? EMPTY_LIST : neighbours);
