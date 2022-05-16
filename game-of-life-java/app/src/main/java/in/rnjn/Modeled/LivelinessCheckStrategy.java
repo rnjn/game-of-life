@@ -1,4 +1,4 @@
-package in.rnjn;
+package in.rnjn.Modeled;
 
 public class LivelinessCheckStrategy {
     public boolean getNextStatus(int numberOfAliveNeighbours, boolean alive) {

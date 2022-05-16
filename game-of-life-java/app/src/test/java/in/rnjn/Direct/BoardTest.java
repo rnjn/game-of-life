@@ -1,9 +1,12 @@
-package in.rnjn;
+package in.rnjn.Direct;
+import in.rnjn.Direct.Board;
+import in.rnjn.Modeled.TwoDimensionalBoard;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BoardTest {
     @Test
@@ -138,6 +141,19 @@ class BoardTest {
         board.tick();
         assertEquals(0, getNumberOfAliveCells(board.getLatestBoardCopy()));
     }
+
+    @Test
+    void shouldPrintToString() {
+        int length = 3;
+        int breadth = 3;
+        Board board = new Board(3,3,4);
+        String boardToString = board.toString();
+        assertTrue(boardToString.contains("-----"));
+        assertTrue(boardToString.contains("_____"));
+        boardToString = board.tick().toString();
+        assertEquals( breadth + 2 + ((length + 2) * (breadth + 2)) , boardToString.toCharArray().length);
+    }
+
 
     private int getNumberOfAliveCells(int[][] latestBoard) {
         return Arrays.stream(latestBoard).flatMapToInt(Arrays::stream).sum();

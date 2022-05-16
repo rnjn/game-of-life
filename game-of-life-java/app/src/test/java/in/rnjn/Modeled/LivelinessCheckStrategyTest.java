@@ -1,4 +1,4 @@
-package in.rnjn;
+package in.rnjn.Modeled;
 
 import org.junit.jupiter.api.Test;
 

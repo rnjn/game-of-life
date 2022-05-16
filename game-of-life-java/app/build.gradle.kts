@@ -1,9 +1,9 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat.*
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
     application
+    jacoco
 }
 
 sourceSets {
@@ -19,26 +19,37 @@ java {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit test framework.
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
 
 }
-tasks {
-    test {
-        useJUnitPlatform()
-        testLogging {
-            events(FAILED, STANDARD_ERROR, SKIPPED)
-            exceptionFormat = FULL
-            showExceptions = true
-            showCauses = true
-            showStackTraces = true
-        }
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events(FAILED, STANDARD_ERROR, SKIPPED)
+        exceptionFormat = FULL
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+        finalizedBy(tasks.jacocoTestReport)
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
 
 application {

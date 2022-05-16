@@ -1,10 +1,12 @@
-package in.rnjn;
+package in.rnjn.Direct;
+
+import in.rnjn.GameOfLifeBoard;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Board {
+public class Board implements GameOfLifeBoard {
     private int[][] board;
 
     public Board(int length, int breadth, int numberOfAliveCells) {
@@ -34,6 +36,7 @@ public class Board {
         return copyOfBoard;
     }
 
+    @Override
     public Board tick() {
         int[][] newBoard = new int[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {
