@@ -58,11 +58,11 @@ class CellTest {
     @Test
     void shouldSetNeighbours() {
         Cell cell = new Cell(1, EMPTY_LIST);
-        assertEquals(0, cell.getNeighbours().stream().count());
+        assertEquals(0, cell.getNeighbourCount());
         cell.setNeighbours(null);
-        assertEquals(0, cell.getNeighbours().stream().count());
+        assertEquals(0, cell.getNeighbourCount());
         cell.setNeighbours(get3Neighbours());
-        assertEquals(3, cell.getNeighbours().stream().count());
+        assertEquals(3, cell.getNeighbourCount());
     }
 
     @Test

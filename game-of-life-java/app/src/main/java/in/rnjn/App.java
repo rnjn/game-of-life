@@ -12,14 +12,14 @@ public class App {
           System.out.println("Starting with procedural design");
           Board board = new Board(40, 40, 200);
           System.out.println(board);
-          startGameOfLife(board, 1);
+          startGameOfLife(board, 100);
       }
       else {
           System.out.println("Starting with modeled design");
           TwoDimensionalBoard modeledBoard = new TwoDimensionalBoard(40, 40);
           modeledBoard.start();
           System.out.println(modeledBoard);
-          startGameOfLife(modeledBoard, 1);
+          startGameOfLife(modeledBoard, 100);
       }
     }
 

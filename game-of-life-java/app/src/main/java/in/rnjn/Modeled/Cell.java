@@ -68,10 +68,11 @@ public class Cell {
         return Objects.hash(id);
     }
 
-    public List<Cell> getNeighbours() {
-        return neighbours;
+    public int getNeighbourCount() {
+        return Math.toIntExact(neighbours.stream().count());
     }
 
+    //TODO : find a better way to model this, can leave models in an invalid state
     public void setNeighbours(List<Cell> neighbours) {
         this.neighbours.clear();
         this.neighbours.addAll(neighbours == null ? EMPTY_LIST : neighbours);
